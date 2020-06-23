@@ -54,19 +54,19 @@ class Contact extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function setName(string $name): Contact {
+    public function setName(?string $name): Contact {
         $this->name = $name;
 
         return $this;
     }
 
-    public function setSurname(string $surname): Contact {
+    public function setSurname(?string $surname): Contact {
         $this->surname = $surname;
 
         return $this;
     }
 
-    public function setPatronymic(string $patronymic): Contact
+    public function setPatronymic(?string $patronymic): Contact
     {
         $this->patronymic = $patronymic;
 
