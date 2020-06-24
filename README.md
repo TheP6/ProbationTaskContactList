@@ -16,7 +16,7 @@ Code is a mess because of two reasons:
 
 ## To run project:
  
- * Pull docker-setup repository [a link](https://github.com/TheP6/ProbationTaskContactListDockerSetup)
+ * Pull [docker-setup repository](https://github.com/TheP6/ProbationTaskContactListDockerSetup)
  * Move to folder and run `sh build.sh` 
  
 _**Postman collection for api is in file ContactsTestTask.postman_collection**_
