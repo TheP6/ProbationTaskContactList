@@ -59,12 +59,7 @@ $config = [
         'enablePrettyUrl' => true,
         'enableStrictParsing' => false,
         'showScriptName' => false,
-        'rules' => [
-            '<controller:\w+/?>' => '<controller>/index',
-            '<controller:\w+>/<id:\d+>' => '<controller>/view',
-            '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-            '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-        ],
+        'rules' => require(__DIR__.'/../routes/routes.php'),
     ],
 ],
     'params' => $params,
