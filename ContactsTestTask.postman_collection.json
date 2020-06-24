@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "dc65fc50-1b9f-4332-b7f8-4c29cea8844d",
+		"name": "ContactsTestTask",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UserSession",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Bogdan\",\n\t\"password\": \"12345\",\n\t\"password_repeat\": \"12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user-session/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user-session",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user-session/logout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user-session",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"Bogdan\",\n\t\"password\": \"12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user-session/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user-session",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ContactBook",
+			"item": [
+				{
+					"name": "Contacts",
+					"item": [
+						{
+							"name": "patch_contact",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/contacts/{{contact_id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"contacts",
+										"{{contact_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_contact",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/contacts/{{contact_id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"contacts",
+										"{{contact_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_contact",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Ivan\",\r\n    \"surname\": \"Ivanenko\",\r\n    \"patronymic\": \"Ivanovych\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/contacts",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"contacts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all_contacts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/contacts",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"contacts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_contact",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/contacts/{{contact_id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"contacts",
+										"{{contact_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Phones",
+					"item": [
+						{
+							"name": "get_phone",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/phones/{{phone_id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"phones",
+										"{{phone_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_phone",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"contact_id\": 1,\r\n    \"phone\": \"+380969991321\",\r\n    \"label\": \"home\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/phones",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"phones"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "patch_phone",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"phone\": \"+380969991351\",\r\n    \"label\": \"work\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/phones/{{phone_id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"phones",
+										"{{phone_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_phone",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/phones/{{phone_id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"phones",
+										"{{phone_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/search?input=iv",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "input",
+									"value": "iv"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
