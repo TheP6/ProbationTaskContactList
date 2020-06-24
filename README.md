@@ -1,6 +1,6 @@
-#Probation task using Yii2 framework
+# Probation task using Yii2 framework
 
-##Notes
+## Notes
 
 Code is a mess because of two reasons:
  * I don't have any experience with Yii2;
@@ -9,12 +9,12 @@ Code is a mess because of two reasons:
  3rd party libraries and make them work in Yii2. Each approach would take a ton of time, which I don't have at the moment.
  So I finished the task using Yii2 structure as it is documented.
  
-##Goals:
+## Goals:
  * Create simple rest-api which will manage personal phonebook for each user
  * User should be able to create, change, remove contact information and add phones to contacts
  * Add registration and authorization system
 
-##To run project:
+## To run project:
  
  * Pull docker-setup repository
  * Move to docker-setup folder
