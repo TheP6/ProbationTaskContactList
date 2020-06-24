@@ -6,14 +6,13 @@ use app\models\entity\User;
 use app\models\input\RegisterForm;
 use Yii;
 use yii\filters\AccessControl;
-use yii\rest\Controller as RestController;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\input\LoginForm;
 use yii\web\UnprocessableEntityHttpException;
 
-class UserSessionController extends RestController
+class UserSessionController extends BaseController
 {
     /**
      * {@inheritdoc}

@@ -2,20 +2,21 @@
 
 namespace app\controllers;
 
+use app\controllers\resources\PhoneResourceTrait;
 use app\models\entity\Contact;
 use app\models\entity\Phone;
-use app\models\entity\User;
 use app\models\input\contacts\CreatePhoneForm;
 use app\models\input\contacts\PatchPhoneForm;
 use Yii;
 use yii\filters\AccessControl;
-use yii\rest\Controller as RestController;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\web\UnprocessableEntityHttpException;
 
-class PhonesController extends RestController
+class PhonesController extends BaseController
 {
+    use PhoneResourceTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -170,31 +171,5 @@ class PhonesController extends RestController
         }
 
         return $phone;
-    }
-
-    /**
-     * @return User
-     */
-    private function getCurrentUser(): User
-    {
-        /**
-         * @var $user User
-         */
-        $user =  Yii::$app->user->identity;;
-
-        return $user;
-    }
-
-    /**
-     * @param Phone $phone
-     * @return array
-     */
-    private function phoneResource(Phone $phone): array
-    {
-        return [
-            'id'          => $phone->id(),
-            'number'      => $phone->phone(),
-            'label'       => $phone->label(),
-        ];
     }
 }

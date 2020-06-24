@@ -2,20 +2,21 @@
 
 namespace app\controllers;
 
+use app\controllers\resources\ContactResourceTrait;
 use app\models\entity\Contact;
-use app\models\entity\Phone;
 use app\models\entity\User;
 use app\models\input\contacts\CreateContactForm;
 use app\models\input\contacts\PatchContactForm;
 use Yii;
 use yii\filters\AccessControl;
-use yii\rest\Controller as RestController;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\web\UnprocessableEntityHttpException;
 
-class ContactsController extends RestController
+class ContactsController extends BaseController
 {
+    use ContactResourceTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -189,19 +190,6 @@ class ContactsController extends RestController
     }
 
     /**
-     * @return User
-     */
-    private function getCurrentUser(): User
-    {
-        /**
-         * @var $user User
-         */
-        $user =  Yii::$app->user->identity;;
-
-        return $user;
-    }
-
-    /**
      * @param string $name
      * @param string|null $surname
      * @param string|null $patronymic
@@ -219,63 +207,5 @@ class ContactsController extends RestController
         $contact->save();
 
         return $contact;
-    }
-
-    /**
-     * @param Contact[] $contacts
-     * @return array
-     */
-    private function contactCollectionResource(array $contacts): array
-    {
-        $transformed = [];
-
-        foreach ($contacts as $contact) {
-            $transformed[] = $this->contactResource($contact);
-        }
-
-        return $transformed;
-    }
-
-    /**
-     * @param Contact $contact
-     * @return array
-     */
-    private function contactResource(Contact $contact): array
-    {
-        return [
-            'id'          => $contact->id(),
-            'name'        => $contact->name(),
-            'surname'     => $contact->surname(),
-            'patronymic'  => $contact->patronymic(),
-            'phones'      => $this->phoneCollectionResource($contact->phones())
-        ];
-    }
-
-    /**
-     * @param Phone[] $phones
-     * @return array
-     */
-    private function phoneCollectionResource(array $phones): array
-    {
-        $transformed = [];
-
-        foreach ($phones as $phone) {
-            $transformed[] = $this->phoneResource($phone);
-        }
-
-        return $transformed;
-    }
-
-    /**
-     * @param Phone $phone
-     * @return array
-     */
-    private function phoneResource(Phone $phone): array
-    {
-        return [
-            'id'    => $phone->id(),
-            'phone' => $phone->phone(),
-            'label' => $phone->label(),
-        ];
     }
 }
