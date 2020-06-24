@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\entity\Contact;
+use app\models\entity\Phone;
 use app\models\entity\User;
 use app\models\input\contacts\CreateContactForm;
 use app\models\input\contacts\PatchContactForm;
@@ -55,7 +56,12 @@ class ContactsController extends RestController
     {
         $user = $this->getCurrentUser();
 
-        $contacts = Contact::find()->where(['user_id' => $user->id()])->all();
+        $contacts = Contact::find()
+            ->with('phones')
+            ->where([
+                'user_id' => $user->id()
+            ])
+            ->all();
 
         return $this->asJson(
             $this->contactCollectionResource($contacts)
@@ -241,6 +247,35 @@ class ContactsController extends RestController
             'name'        => $contact->name(),
             'surname'     => $contact->surname(),
             'patronymic'  => $contact->patronymic(),
+            'phones'      => $this->phoneCollectionResource($contact->phones())
+        ];
+    }
+
+    /**
+     * @param Phone[] $phones
+     * @return array
+     */
+    private function phoneCollectionResource(array $phones): array
+    {
+        $transformed = [];
+
+        foreach ($phones as $phone) {
+            $transformed[] = $this->phoneResource($phone);
+        }
+
+        return $transformed;
+    }
+
+    /**
+     * @param Phone $phone
+     * @return array
+     */
+    private function phoneResource(Phone $phone): array
+    {
+        return [
+            'id'    => $phone->id(),
+            'phone' => $phone->phone(),
+            'label' => $phone->label(),
         ];
     }
 }
