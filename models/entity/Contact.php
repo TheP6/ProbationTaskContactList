@@ -41,7 +41,7 @@ class Contact extends ActiveRecord
 
     public function getPhones()
     {
-        return $this->hasMany(Phone::class, ['order_id' => 'id']);
+        return $this->hasMany(Phone::class, ['contact_id' => 'id']);
     }
 
     public function user(): User

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\input\contacts;
+namespace app\models\input\phones;
 
 use app\models\entity\Contact;
 use app\models\entity\Phone;
@@ -72,7 +72,7 @@ class CreatePhoneForm extends Model
         }
     }
 
-    protected function phoneIsValid()
+    public function phoneIsValid()
     {
         $result = preg_match('/^\+[1-9]{1}[0-9]{3,14}$/', $this->phone);
 
@@ -80,12 +80,12 @@ class CreatePhoneForm extends Model
             throw new \Exception("Preg match failed!");
         }
 
-        if ($result === 1) {
+        if ($result === 0) {
             $this->addError('phone', 'Phone is invalid!');
         }
     }
 
-    protected function phoneIsUnique()
+    public function phoneIsUnique()
     {
         if (!$this->hasErrors()) {
 
@@ -98,8 +98,8 @@ class CreatePhoneForm extends Model
                     $contactTable,
                     "`{$phoneTable}`.`contact_id` = `{$contactTable}`.`id`"
                 )
-                ->where(["{$contactTable}.'.user_id'" => $this->_user->id()])
-                ->andWhere(["{$phoneTable}.phone" => $this->phone])
+                ->where(["`{$contactTable}`.`user_id`" => $this->_user->id()])
+                ->andWhere(["`{$phoneTable}`.`number`" => $this->phone])
                 ->one();
 
             if (null !== $phone) {

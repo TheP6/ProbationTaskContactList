@@ -8,47 +8,12 @@ use app\models\entity\User;
 use app\models\input\contacts\CreateContactForm;
 use app\models\input\contacts\PatchContactForm;
 use Yii;
-use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\web\UnprocessableEntityHttpException;
 
 class ContactsController extends BaseController
 {
     use ContactResourceTrait;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'actions' => [
-                            'list',
-                            'get',
-                            'create',
-                            'delete'
-                        ],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'list'   => ['get'],
-                    'create' => ['post'],
-                    'get'    => ['get'],
-                    'delete' => ['delete'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * @return \yii\web\Response

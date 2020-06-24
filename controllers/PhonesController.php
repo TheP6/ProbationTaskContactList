@@ -5,50 +5,15 @@ namespace app\controllers;
 use app\controllers\resources\PhoneResourceTrait;
 use app\models\entity\Contact;
 use app\models\entity\Phone;
-use app\models\input\contacts\CreatePhoneForm;
-use app\models\input\contacts\PatchPhoneForm;
+use app\models\input\phones\CreatePhoneForm;
+use app\models\input\phones\PatchPhoneForm;
 use Yii;
-use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\web\UnprocessableEntityHttpException;
 
 class PhonesController extends BaseController
 {
     use PhoneResourceTrait;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'actions' => [
-                            'list',
-                            'get',
-                            'create',
-                            'delete'
-                        ],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'list'   => ['get'],
-                    'create' => ['post'],
-                    'get'    => ['get'],
-                    'delete' => ['delete'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * @return \yii\web\Response
@@ -78,10 +43,10 @@ class PhonesController extends BaseController
 
             $phone = new Phone();
             $phone
-                ->setPhone($form->phone)
+                ->setNumber($form->phone)
                 ->setLabel($form->label)
                 ->setContact($form->getContact());
-
+            $phone->save();
 
             return $this->asJson($this->phoneResource($phone));
         }
@@ -107,7 +72,7 @@ class PhonesController extends BaseController
         if ($formLoaded && $form->validate()) {
 
             $phone
-                ->setPhone($form->phone ?? $phone->phone())
+                ->setNumber($form->phone ?? $phone->number())
                 ->setLabel($form->label ?? $phone->label())
                 ->setContact($form->getContact() ?? $phone->contact());
             $phone->save();
@@ -162,8 +127,8 @@ class PhonesController extends BaseController
                 $contactTable,
                 "`{$phoneTable}`.`contact_id` = `{$contactTable}`.`id`"
             )
-            ->where(["{$contactTable}.'.user_id'" => $user->id()])
-            ->andWhere(["{$phoneTable}.id" => $phoneId])
+            ->where(["{$contactTable}.`user_id`" => $user->id()])
+            ->andWhere(["`{$phoneTable}`.`id`" => $phoneId])
             ->one();
 
         if (null === $phone) {

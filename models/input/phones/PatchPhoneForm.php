@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\input\contacts;
+namespace app\models\input\phones;
 
 use app\models\entity\User;
 

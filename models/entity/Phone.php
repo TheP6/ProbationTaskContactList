@@ -19,7 +19,7 @@ class Phone extends ActiveRecord
         return $this->id;
     }
 
-    public function phone(): string
+    public function number(): string
     {
         return $this->number;
     }
@@ -36,12 +36,12 @@ class Phone extends ActiveRecord
 
     public function getContact()
     {
-        return $this->hasOne(Contact::class, ['id' => 'customer_id']);
+        return $this->hasOne(Contact::class, ['id' => 'contact_id']);
     }
 
-    public function setPhone(string $phone): Phone
+    public function setNumber(string $number): Phone
     {
-        $this->phone = $phone;
+        $this->number = $number;
 
         return $this;
     }

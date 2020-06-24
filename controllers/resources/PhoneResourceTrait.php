@@ -29,7 +29,7 @@ trait PhoneResourceTrait
     {
         return [
             'id'          => $phone->id(),
-            'number'      => $phone->phone(),
+            'number'      => $phone->number(),
             'label'       => $phone->label(),
         ];
     }
