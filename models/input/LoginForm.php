@@ -1,9 +1,10 @@
 <?php
 
-namespace app\models;
+namespace app\models\input;
 
 use Yii;
 use yii\base\Model;
+use app\models\entity\User;
 
 /**
  * LoginForm is the model behind the login form.
@@ -19,7 +20,6 @@ class LoginForm extends Model
 
     private $_user = false;
 
-
     /**
      * @return array the validation rules.
      */
@@ -31,7 +31,7 @@ class LoginForm extends Model
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            ['password', 'validateUserPassword'],
         ];
     }
 
@@ -42,12 +42,12 @@ class LoginForm extends Model
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
      */
-    public function validatePassword($attribute, $params)
+    public function validateUserPassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
 
-            if (!$user || !$user->validatePassword($this->password)) {
+            if (!$user || !password_verify($this->password, $user->passwordHash())) {
                 $this->addError($attribute, 'Incorrect username or password.');
             }
         }
@@ -62,6 +62,7 @@ class LoginForm extends Model
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
         }
+
         return false;
     }
 
@@ -73,7 +74,7 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findOne(['login' => $this->username]);
         }
 
         return $this->_user;
