@@ -3,12 +3,11 @@
 namespace app\models\input\contacts;
 
 use app\models\entity\Contact;
-use Yii;
 use yii\base\Model;
 use app\models\entity\User;
 
 /**
- * LoginForm is the model behind the login form.
+ * PatchContactForm is the model behind the login form.
  *
  * @property User|null $user This property is read-only.
  *
@@ -70,16 +69,16 @@ class PatchContactForm extends Model
                 ->where([
                     'name' => $this->name ?? $this->_currentContact->name()
                 ])
-                ->where([
+                ->andWhere([
                     'surname' => $this->surname ?? $this->_currentContact->surname()
                 ])
-                ->where([
+                ->andWhere([
                     'patronymic' => $this->patronymic ?? $this->_currentContact->patronymic()
                 ])
-                ->where([
+                ->andWhere([
                     'user_id' => $this->_user->id()
                 ])
-                ->where(['!=', 'id', $this->_currentContact->id()])
+                ->andWhere(['!=', 'id', $this->_currentContact->id()])
                 ->one();
 
             if (null !== $contact) {

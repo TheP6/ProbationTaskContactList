@@ -46,9 +46,16 @@ class Phone extends ActiveRecord
         return $this;
     }
 
-    public function setLabel(string $label): Phone
+    public function setLabel(?string $label): Phone
     {
         $this->label = $label;
+
+        return $this;
+    }
+
+    public function setContact(Contact $contact): Phone
+    {
+        $this->contact_id = $contact->id();
 
         return $this;
     }
