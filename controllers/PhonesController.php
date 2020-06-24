@@ -9,7 +9,7 @@ use app\models\input\phones\CreatePhoneForm;
 use app\models\input\phones\PatchPhoneForm;
 use Yii;
 use yii\web\NotFoundHttpException;
-use yii\web\UnprocessableEntityHttpException;
+use extensions\exceptions\UnprocessableEntityHttpException;
 
 class PhonesController extends BaseController
 {
@@ -51,7 +51,7 @@ class PhonesController extends BaseController
             return $this->asJson($this->phoneResource($phone));
         }
 
-        throw new UnprocessableEntityHttpException("Validation failed.");
+        throw new UnprocessableEntityHttpException("Validation failed.", ['errors' => $form->getErrors()]);
     }
 
     /**
@@ -80,7 +80,7 @@ class PhonesController extends BaseController
             return $this->asJson($this->phoneResource($phone));
         }
 
-        throw new UnprocessableEntityHttpException("Validation failed.");
+        throw new UnprocessableEntityHttpException("Validation failed.", ['errors' => $form->getErrors()]);
     }
 
     /**

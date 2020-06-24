@@ -17,51 +17,52 @@ $config = [
         'log',
     ],
     'aliases' => [
-    '@bower' => '@vendor/bower-asset',
-    '@npm' => '@vendor/npm-asset',
-],
+        '@bower' => '@vendor/bower-asset',
+        '@npm' => '@vendor/npm-asset',
+    ],
     'components' => [
-    'request' => [
-        // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-        'cookieValidationKey' => 'KDeWpTfK-uejVMi4p5Ev9NYwaQUXBL2_',
-        'parsers' => [
-            'application/json' => 'yii\web\JsonParser',
-        ]
-    ],
-    'cache' => [
-        'class' => 'yii\caching\FileCache',
-    ],
-    'user' => [
-        'identityClass' => 'app\models\entity\User',
-        'enableAutoLogin' => true,
-    ],
-    'errorHandler' => [
-        'errorAction' => 'default/error',
-    ],
-    'mailer' => [
-        'class' => 'yii\swiftmailer\Mailer',
-        // send all mails to a file by default. You have to set
-        // 'useFileTransport' to false and configure a transport
-        // for the mailer to send real emails.
-        'useFileTransport' => true,
-    ],
-    'log' => [
-        'traceLevel' => YII_DEBUG ? 3 : 0,
-        'targets' => [
-            [
-                'class' => 'yii\log\FileTarget',
-                'levels' => ['error', 'warning'],
+        'request' => [
+            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+            'cookieValidationKey' => 'KDeWpTfK-uejVMi4p5Ev9NYwaQUXBL2_',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
+        ],
+        'cache' => [
+            'class' => 'yii\caching\FileCache',
+        ],
+        'user' => [
+            'identityClass' => 'app\models\entity\User',
+            'enableAutoLogin' => true,
+        ],
+        'errorHandler' => [
+            'class' => \extensions\ErrorHandler::class,
+            'errorAction' => 'default/error',
+        ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            // send all mails to a file by default. You have to set
+            // 'useFileTransport' to false and configure a transport
+            // for the mailer to send real emails.
+            'useFileTransport' => true,
+        ],
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['error', 'warning'],
+                ],
             ],
         ],
+        'db' => $db,
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => false,
+            'showScriptName' => false,
+            'rules' => require(__DIR__ . '/../routes/routes.php'),
+        ],
     ],
-    'db' => $db,
-    'urlManager' => [
-        'enablePrettyUrl' => true,
-        'enableStrictParsing' => false,
-        'showScriptName' => false,
-        'rules' => require(__DIR__.'/../routes/routes.php'),
-    ],
-],
     'params' => $params,
 ];
 

@@ -9,7 +9,7 @@ use app\models\input\contacts\CreateContactForm;
 use app\models\input\contacts\PatchContactForm;
 use Yii;
 use yii\web\NotFoundHttpException;
-use yii\web\UnprocessableEntityHttpException;
+use extensions\exceptions\UnprocessableEntityHttpException;
 
 class ContactsController extends BaseController
 {
@@ -73,7 +73,7 @@ class ContactsController extends BaseController
             return $this->asJson($this->contactResource($contact));
         }
 
-        throw new UnprocessableEntityHttpException("Validation failed.");
+        throw new UnprocessableEntityHttpException("Validation failed.", ['errors' => $form->getErrors()]);
     }
 
     /**
@@ -85,29 +85,29 @@ class ContactsController extends BaseController
         $contactId = $this->getRequestedContactId();
         $contact = $this->getContactForCurrentUser($contactId);
 
-        $patchContactForm = new PatchContactForm();
-        $formLoaded = $patchContactForm->load(Yii::$app->request->post(), '');
-        $patchContactForm->setCurrentUser(
+        $form = new PatchContactForm();
+        $formLoaded = $form->load(Yii::$app->request->post(), '');
+        $form->setCurrentUser(
             $this->getCurrentUser()
         )->setCurrentContact(
             $contact
         );
 
-        if ($formLoaded && $patchContactForm->validate()) {
+        if ($formLoaded && $form->validate()) {
 
             $contact->setName(
-                $patchContactForm->name ?? $contact->name()
+                $form->name ?? $contact->name()
             )->setSurname(
-                $patchContactForm->surname ?? $contact->surname()
+                $form->surname ?? $contact->surname()
             )->setPatronymic(
-                $patchContactForm->patronymic ?? $contact->patronymic()
+                $form->patronymic ?? $contact->patronymic()
             );
             $contact->save();
 
             return $this->asJson($this->contactResource($contact));
         }
 
-        throw new UnprocessableEntityHttpException("Validation failed.");
+        throw new UnprocessableEntityHttpException("Validation failed.", ['errors' => $form->getErrors()]);
     }
 
     /**

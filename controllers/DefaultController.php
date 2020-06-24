@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use yii\rest\Controller as RestController;
+use yii\web\ErrorAction;
 
 class DefaultController extends RestController
 {
@@ -10,7 +11,7 @@ class DefaultController extends RestController
     {
         return [
             'error' => [
-                'class' => 'yii\web\ErrorAction',
+                'class' => ErrorAction::class,
             ],
         ];
     }
