@@ -14,11 +14,10 @@ Code is a mess because of two reasons:
  * User should be able to create, change, remove contact information and add phones to contacts
  * Add registration and authorization system
 
+_**Postman collection for api is in file ContactsTestTask.postman_collection**_
+
 ## To run project:
  
- * Pull docker-setup repository
- * Move to docker-setup folder
- * Pull this project into folder named `code`, which must be located in docker-setup folder
- * Run `docker-compose up --build`  from docker-setup folder
+ * Pull [docker-setup repository](https://github.com/TheP6/ProbationTaskContactListDockerSetup)
+ * Move to folder and run `sh build.sh` 
  
-_**Postman collection for api is in file ContactsTestTask.postman_collection**_
